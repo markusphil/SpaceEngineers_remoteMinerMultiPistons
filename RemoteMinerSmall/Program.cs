@@ -104,12 +104,26 @@ namespace IngameScript
                 _extensionSteps = 1f;
             }
 
+            if (Storage.Length > 0)
+            {
+                var parts = Storage.Split(';');
+                _isExtending = Boolean.Parse(parts[0]);
+                _isInitializing = Boolean.Parse(parts[1]);
+                _isResetting = Boolean.Parse(parts[2]);
+                _backwards = Boolean.Parse(parts[3]);
+                _isPaused = Boolean.Parse(parts[4]);
+                _cargoFull = Boolean.Parse(parts[5]);
+               
+            }
+
         }
 
         public void Save()
         {
             // save state
-        }
+            Storage = _isExtending + ";" + _isInitializing + ";" + _isResetting + ";" + _backwards + ";" + _isPaused + ";" + _cargoFull;
+           
+         }
 
         public void Main(string argument, UpdateType updateSource)
         {

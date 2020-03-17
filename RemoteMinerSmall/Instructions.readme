@@ -8,6 +8,7 @@ To set up the miner you need:
 	4. a rotor named "Rotor""
 	5. a lcd display named "Status LCD"
 	6. a beacon named "Beacon"
+	7. at least one cargo container
 
 In the very top of the script you find settings for the main Velocity and large / small grid configurations
 
