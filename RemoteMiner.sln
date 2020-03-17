@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteMinerSmall", "RemoteMinerSmall\RemoteMinerSmall.csproj", "{0A9781D1-64F3-4BCB-B90F-A074E0388602}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteMiner", "RemoteMinerSmall\RemoteMiner.csproj", "{0A9781D1-64F3-4BCB-B90F-A074E0388602}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
