@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System;
 using Sandbox.Game.Gui;
+using Sandbox.Game.Replication;
 using VRage.Collections;
 using VRage.Game.Components;
 using VRage.Game.GUI.TextPanel;
@@ -58,7 +59,7 @@ namespace IngameScript
         private int _progress = 0;
         private float _totalMaxVolume = 0;
         private float _totalCurrentVolume = 0;
-
+ 
 
 
         public Program()
@@ -142,10 +143,9 @@ namespace IngameScript
 
         public void HandleMinerState()
         {
-      
-            updateCargoCapacity();
- 
-            updateStatusLCD();
+            CalcProgress();
+            UpdateCargoCapacity();
+            UpdateStatusLCD();
         
             //Check if isInitializing
             if (_isInitializing && _pistonsR[0].CurrentPosition == 0f && _pistonsZ[0].CurrentPosition == _extensionSteps)         
@@ -215,6 +215,7 @@ namespace IngameScript
 
                 }
             }
+            SetBeaconMsg(_progress + "%");
         }
 
         public void SetBeaconMsg(string msg)
@@ -225,10 +226,10 @@ namespace IngameScript
 
         public void CalcProgress()
         {
-            var depth = _pistonsZ[0].CurrentPosition*_pistonCountZ;
-            var rad = _pistonsR[0].CurrentPosition*_pistonCountR;
-            _progress = (int)Math.Floor(((depth - _extensionSteps)*_maxExtension + rad)/(_pistonCountR*_maxExtension*_pistonCountZ*_maxExtension));
-
+            var depth = _pistonsZ[0].CurrentPosition;
+            var rad = _pistonsR[0].CurrentPosition;
+            var res = ((depth - _extensionSteps) * _maxExtension + _extensionSteps * (_backwards ? _maxExtension - rad : rad )) / (_maxExtension*_maxExtension)*100;
+            _progress = (int)Math.Floor(res);
         }
 
         public void InitMiner()
@@ -306,7 +307,7 @@ namespace IngameScript
 
         }
 
-        public void updateCargoCapacity()
+        public void UpdateCargoCapacity()
         {
             var totalMaxVolume = 0f;
             var totalCurrentVolume = 0f;
@@ -323,7 +324,7 @@ namespace IngameScript
             _totalCurrentVolume = totalCurrentVolume;
         }
 
-        public void updateStatusLCD()
+        public void UpdateStatusLCD()
         {
             _statusTextPanel.WriteText("Miner Status Information");
 
@@ -364,16 +365,13 @@ namespace IngameScript
             //debug info
             //_statusTextPanel.WriteText("\n\n RPos: " + _pistonsR[0].CurrentPosition, true);
             //_statusTextPanel.WriteText("\n\n ZPos: " + _pistonsZ[0].CurrentPosition, true);
-            _statusTextPanel.WriteText("\n\n Piston Z Count: " + _pistonCountZ, true);
-            _statusTextPanel.WriteText("\n\n Piston Z target Velocity: " + _VPistonZ, true);
-            _statusTextPanel.WriteText("\n\n Piston Z current Velocity: " + _pistonsZ[0].Velocity, true);
+            //_statusTextPanel.WriteText("\n\n Piston Z Count: " + _pistonCountZ, true);
+            //_statusTextPanel.WriteText("\n Piston Z target Velocity: " + _VPistonZ, true);
+            //_statusTextPanel.WriteText("\n Piston Z current Velocity: " + _pistonsZ[0].Velocity, true);
 
-            _statusTextPanel.WriteText("\n\n Piston R Count: " + _pistonCountR, true);
-            _statusTextPanel.WriteText("\n\n Piston R target Velocity: " + _VPistonR, true);
-            _statusTextPanel.WriteText("\n\n Piston R current Velocity: " + _pistonsR[0].Velocity, true);
-            
-
-
+            //_statusTextPanel.WriteText("\n Piston R Count: " + _pistonCountR, true);
+            //_statusTextPanel.WriteText("\n Piston R target Velocity: " + _VPistonR, true);
+            //_statusTextPanel.WriteText("\n Piston R current Velocity: " + _pistonsR[0].Velocity, true);
 
         }
 

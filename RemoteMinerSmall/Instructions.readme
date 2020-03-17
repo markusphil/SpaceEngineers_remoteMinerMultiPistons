@@ -1,5 +1,18 @@
 ﻿R e a d m e
 -----------
 
-In this file you can include any instructions or other comments you want to have injected onto the 
-top of your final script. You can safely delete this file if you do not want any such comments.
+To set up the miner you need:
+	1. a block group "PistonsZ" for all pistons that go down
+	2. a block group "PistonsR" for all radial pistons
+	3. a drill named "Drill"
+	4. a rotor named "Rotor""
+	5. a lcd display named "Status LCD"
+	6. a beacon named "Beacon"
+
+In the very top of the script you find settings for the main Velocity and large / small grid configurations
+
+Available arguments:
+	- init:		initialise the miner settings. ALWAYS use this argument when you first start the script
+	- reset:	force reset the miner
+	- stop:		stops the miner immediatly
+	- continue:	continues the stoped miner
